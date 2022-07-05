@@ -3,6 +3,15 @@
 
 import sys
 
+def print_info():
+
+    print('File size: {:d}'.format(total_size))
+    for i in status_list:
+        if i in final_list:
+            status_count = final_list.count(i)
+            print("{}: {:d}".format(i, status_count))
+
+
 status_list = [200, 301, 400, 401, 403, 404, 405, 500]
 
 try:
@@ -28,8 +37,4 @@ except Exception:
     pass
 
 finally:
-    print('File size: {:d}'.format(total_size))
-    for i in status_list:
-        if i in final_list:
-            status_count = final_list.count(i)
-            print("{}: {:d}".format(i, status_count))
+    print_info()
