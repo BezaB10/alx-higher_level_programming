@@ -12,7 +12,7 @@ def pascal_triangle(n):
         Returns: list of lists
     """
     t_row = [1]
-    temp_l = [0]
+    temp_b = [0]
     pTri = []
 
     if n <= 0:
@@ -20,5 +20,5 @@ def pascal_triangle(n):
 
     for i in range(n):
         pTri.append(t_row)
-        t_row = [l+r for l, r in zip(t_row + temp_l, temp_l + t_row)]
+        t_row = [b+r for b r in zip(t_row + temp_b, temp_b + t_row)]
     return pTri
