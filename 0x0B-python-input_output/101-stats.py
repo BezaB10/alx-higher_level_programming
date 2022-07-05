@@ -1,52 +1,33 @@
 #!/usr/bin/python3
+'Log Parsing'
 import sys
 
-
-def print_info():
-    print('File size: {:d}'.format(file_size))
-
-    for scode, code_times in sorted(status_codes.items()):
-        if code_times > 0:
-            print('{}: {:d}'.format(scode, code_times))
-
-
-status_codes = {
-    '200': 0,
-    '301': 0,
-    '400': 0,
-    '401': 0,
-    '403': 0,
-    '404': 0,
-    '405': 0,
-    '500': 0
-}
-
-lc = 0
-file_size = 0
-
+status_list = [200, 301, 400, 401, 403, 404, 405, 500]
 try:
-    for line in sys.stdin:
-        if lc != 0 and lc % 10 == 0:
-            print_info()
+    total_size = 0
+    final_list = []
+    for index, line in enumerate(sys.stdin, 1):
+        if line:
+            line_split = line.split()
+            if len(line_split) > 2:
+                if line_split[-1].isnumeric() and line_split[-2].isnumeric():
+                    size = line_split[-1]
+                    status = line_split[-2]
+                    total_size += int(size)
+            if len(status) > 0 and int(status) in status_list:
+                final_list.append(int(status))
+        if index % 10 == 0:
+            print('File size: {}'.format(total_size))
+            for i in status_list:
+                if i in final_list:
+                    status_count = final_list.count(i)
+                    print("{}: {}".format(i, status_count))
+except Exception:
+    pass
 
-        pieces = line.split()
-
-        try:
-            status = int(pieces[-2])
-
-            if str(status) in status_codes.keys():
-                status_codes[str(status)] += 1
-        except:
-            pass
-
-        try:
-            file_size += int(pieces[-1])
-        except:
-            pass
-
-        lc += 1
-
-    print_info()
-except KeyboardInterrupt:
-    print_info()
-    raise
+finally:
+    print('File size: {}'.format(total_size))
+    for i in status_list:
+        if i in final_list:
+            status_count = final_list.count(i)
+            print("{}: {}".format(i, status_count))
