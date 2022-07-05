@@ -3,6 +3,7 @@
 
 import sys
 
+
 def print_info():
 
     print('File size: {:d}'.format(total_size))
@@ -38,3 +39,6 @@ except Exception:
 
 finally:
     print_info()
+except KeyboardInterrupt:
+    print_info()
+    raise
