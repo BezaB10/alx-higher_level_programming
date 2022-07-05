@@ -19,11 +19,11 @@ try:
             if len(status) > 0 and int(status) in status_list:
                 final_list.append(int(status))
         if index % 10 == 0:
-            print('File size: {}'.format(total_size))
+            print('File size: {:d}'.format(total_size))
             for i in status_list:
                 if i in final_list:
                     status_count = final_list.count(i)
-                    print("{}: {}".format(i, status_count))
+                    print("{}: {:d}".format(i, status_count))
 except Exception:
     pass
 
